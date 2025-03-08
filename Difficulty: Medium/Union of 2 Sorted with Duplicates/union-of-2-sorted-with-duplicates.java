@@ -50,45 +50,31 @@ class Solution {
     // Function to return a list containing the union of the two arrays.
     public static ArrayList<Integer> findUnion(int a[], int b[]) {
         ArrayList<Integer> list=new ArrayList<>();
-        HashSet<Integer> set=new HashSet<>();
-        int i=0,j=0;
-        
+        int i=0;
+        int j=0;
+        if (a[i]<=b[j]) list.add(a[i++]);
+        else list.add(b[j++]);
         while(i<a.length && j<b.length){
-            if(a[i]==b[j]){
-                if(!set.contains(a[i])){
-                    set.add(a[i]);
-                    list.add(a[i]);
-                }
-                i++;
-                j++;
-            }
-            else if(a[i]<b[j]){
-                if(!set.contains(a[i])){
+            if(a[i]<=b[j]){
+                if(a[i]!=list.get(list.size()-1))
                 list.add(a[i]);
-                set.add(a[i]);
-                }
                 i++;
             }
             else{
-                if(!set.contains(b[j])){
+                if(b[j]!=list.get(list.size()-1))
                 list.add(b[j]);
-                set.add(b[j]);
-                }
                 j++;
             }
         }
-        
         while(i<a.length){
-            if(!set.contains(a[i])){
-            list.add(a[i]);
-            set.add(a[i]);
+            if(a[i]!=list.get(list.size()-1)){
+                list.add(a[i]);
             }
             i++;
         }
         while(j<b.length){
-            if(!set.contains(b[j])){
-            list.add(b[j]);
-            set.add(b[j]);
+            if(b[j]!=list.get(list.size()-1)){
+                list.add(b[j]);
             }
             j++;
         }
