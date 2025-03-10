@@ -38,18 +38,12 @@ class Geeks {
 class Solution {
     static ArrayList<Integer> leaders(int arr[]) {
         ArrayList<Integer> list=new ArrayList<>();
-        int n=arr.length;
-        int flag=0;
-        for(int i=0;i<n;i++){
-            flag=0;
-            for(int j=i+1;j<n;j++){
-                if(arr[i]<arr[j]){
-                    flag=1;
-                    break;
-                }
-            }
-            if(flag!=1){
-                list.add(arr[i]);
+        int max=Integer.MIN_VALUE;
+        for(int i=arr.length-1;i>=0;i--)
+        {
+            if(max<=arr[i]){
+                list.add(0,arr[i]);
+                max=arr[i];
             }
         }
         return list;
