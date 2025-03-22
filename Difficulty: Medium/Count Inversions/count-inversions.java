@@ -18,53 +18,55 @@ class Sorting {
 // } Driver Code Ends
 
 
+
+
 // User function Template for Java
 
 class Solution {
     // Function to count inversions in the array.
+    static int count;
     static int inversionCount(int arr[]) {
-        return sort(arr,0,arr.length-1);
+        count=0;
+        sort(arr,0,arr.length-1);
+        return count;
     }
-    
-    static int sort(int arr[],int p,int n){
-        if(p<n){
-        int mid=(p+n)/2;
-        int lc=sort(arr,p,mid);
-        int rc=sort(arr,mid+1,n);
-        int cc=merge(arr,p,mid,n);
-        return lc+rc+cc;
+
+    public static void sort(int []arr,int p,int q){
+        if(p<q){
+            int mid=p+(q-p)/2;
+            sort(arr,p,mid);
+            sort(arr,mid+1,q);
+            merge(arr,p,mid,q);
         }
-        return 0;
     }
-    
-    static int merge(int arr[],int st,int mid,int end){
-        ArrayList<Integer> list=new ArrayList<>();
-        int count=0;
-        int i=st,j=mid+1;
-        while(i<=mid && j<=end){
-            if(arr[i]<=arr[j]){
-                list.add(arr[i]);
-                i++;
+
+    public static void merge(int []arr,int p,int mid,int q){
+        int n1=mid-p+1;
+        int n2=q-mid;
+
+        int left[]=new int[n1];
+        int right[]=new int[n2];
+
+        for(int i=0;i<n1;i++){
+            left[i]=arr[p+i];
+        }
+        for(int j=0;j<n2;j++){
+            right[j]=arr[mid+j+1];
+        }
+        int i=0,j=0,k=p;
+        while(i<n1 && j<n2){
+            if(left[i]<=right[j]){
+                arr[k++]=left[i++];
             }
             else{
-                list.add(arr[j]);
-                count+=(mid-i+1);
-                j++;
+                arr[k++]=right[j++];
+                count += (n1 - i);
             }
         }
-        
-        while(i<=mid){
-            list.add(arr[i]);
-            i++;
+        while(i<n1){
+            arr[k++]=left[i++];
         }
-        while(j<=end){
-            list.add(arr[j]);
-            j++;
-        }
-        
-        for(int k=0;k<list.size();k++){
-            arr[k+st]=list.get(k);
-        }
-        return count;
+        while(j<n2) arr[k++]=right[j++];
+
     }
 }
