@@ -32,7 +32,7 @@ class Solution {
         int ub=m/n+1;
         while(lb<=ub){
             int mid=lb+(ub-lb)/2;
-            long nth= (int)Math.pow(mid,n);
+            long nth= (long)Math.pow(mid,n);
             if(nth==m){
                 return mid;
             }
