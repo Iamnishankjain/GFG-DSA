@@ -33,31 +33,34 @@ System.out.println("~");
 // User function Template for Java
 
 class Solution {
-    public static class Pair {
-        double first;
-        int second;
-
-        Pair(double first, int second) {
-            this.first = first;
-            this.second = second;
-        }
-    }
     public static double findSmallestMaxDist(int arr[], int k) {
         int n=arr.length;
-        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> Double.compare(b.first, a.first));
-        int howMany[]=new int[n-1];
-
+        double low=0;
+        double high=0;
         for(int i=0;i<n-1;i++){
-            pq.add(new Pair(arr[i+1]-arr[i],i));
+            high=Math.max(arr[i+1]-arr[i],high);
         }
-        for(int gasS=1;gasS<=k;gasS++){
-                Pair top=pq.poll();
-                int secInd=top.second;
-                howMany[secInd]++;
-                double diff=arr[secInd+1]-arr[secInd];
-                double sectionlength=diff/(double)(howMany[secInd]+1);
-                pq.add(new Pair(sectionlength,secInd)); 
+        while(high-low>1e-6){
+            double mid=(low+high)/2;
+            int count=numberOfGasStation(arr,mid);
+            if(count>k){
+                low=mid;
+            }
+            else{
+                high=mid;
+            }
         }
-        return pq.poll().first;
+        return high;
+    }
+    public static int numberOfGasStation(int arr[], double dist){
+        int count=0;
+        for(int i=1;i<arr.length;i++){
+            int noInBw=(int)((arr[i]-arr[i-1])/dist);
+            if((arr[i]-arr[i-1])/dist==noInBw*dist){
+                noInBw--;
+            }
+            count+=noInBw;
+        }
+        return count;
     }
 }
