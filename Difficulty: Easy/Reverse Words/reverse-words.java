@@ -35,21 +35,16 @@ class Solution {
     // Function to reverse words in a given string
     public String reverseWords(String s) {
         StringBuilder sb=new StringBuilder();
-        String str[]=s.trim().replaceAll("\\s+", " ").split(" ");
-        int n=str.length;
-        reverse(str,n);
-        for(int i=0;i<n-1;i++){
-            sb.append(str[i]+" ");
+        int i=s.length()-1;
+        while(i>=0){
+            while(i>=0 && s.charAt(i)==' ') i--;
+            int j=i;
+            while(i>=0 && s.charAt(i)!=' ') i--;
+            if(j>=0){
+                sb.append(s.substring(i+1,j+1)+" ");
+            }
         }
-        sb.append(str[n-1]);
-        return sb.toString();
-    }
-
-    public void reverse(String str[],int n){
-        for(int i=0;i<n/2;i++){
-            String temp=str[i];
-            str[i]=str[n-i-1];
-            str[n-i-1]=temp;
-        }
+        return sb.toString().trim();
+        
     }
 }
