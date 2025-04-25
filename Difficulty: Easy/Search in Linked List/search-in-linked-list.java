@@ -51,16 +51,16 @@ class GFG {
 */
 class Solution {
     static boolean searchKey(int n, Node head, int key) {
+        Node ptr=head;
         if(head==null){
             return false;
         }
-        int i=0;
-        while(i<n){
-            if(head.data==key){
-                return true;
-            }
-            head=head.next;
-            i++;
+        if(ptr.data==key){
+            return true;
+        }
+        while(ptr!=null){
+            if(ptr.data==key) return true;
+            ptr=ptr.next;
         }
         return false;
     }
