@@ -12,6 +12,8 @@ class Solution {
         if(ind>=n || sum>k){
             return false;
         }
-        return check(ind+1,sum+arr[ind],arr,k,n) || check(ind+1,sum,arr,k,n);
+        if(check(ind+1,sum+arr[ind],arr,k,n)) return true;
+        if(check(ind+1,sum,arr,k,n)) return true;
+        return false;
     }
 }
