@@ -12,9 +12,7 @@ class Solution {
             list.add(sum);
             return;
         }
-        sum+=arr[ind];
-        subSum(ind+1,arr,list,n,sum);
-        sum-=arr[ind];
+        subSum(ind+1,arr,list,n,sum+arr[ind]);
         subSum(ind+1,arr,list,n,sum);
     }
 }
