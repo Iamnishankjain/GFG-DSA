@@ -5,10 +5,12 @@ class Solution {
         // Code here
         int sum=0;
         int n=b.length();
-        for(int i=0;i<n;i++){
+        int p2=1;
+        for(int i=n-1;i>=0;i--){
             if(b.charAt(i)=='1'){
-                sum+=Math.pow(2,n-(i+1));
+                sum+=p2;
             }
+            p2=p2*2;
         }
         return sum;
     }
