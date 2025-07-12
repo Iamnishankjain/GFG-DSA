@@ -3,20 +3,16 @@
 class Solution {
     public List<String> AllPossibleStrings(String s) {
         // Code here
-        List<String> list=new ArrayList<>();
-        sub(0,list,s,new StringBuilder());
-        Collections.sort(list);
-        return list;
-    }
-    
-    public void sub(int ind,List<String> list,String s,StringBuilder sb){
-        if(ind==s.length()){
-            return;
+        List<String> res=new ArrayList<>();
+        int n=s.length();
+        int noOfSubset= 1<<n;
+        for(int num=1;num<noOfSubset;num++){
+            StringBuilder sb=new StringBuilder();
+            for(int i=0;i<n;i++)
+                if((num & (1<<i))!=0) sb.append(s.charAt(i));
+            res.add(sb.toString());
         }
-        sb.append(s.charAt(ind));
-        list.add(sb.toString());
-        sub(ind+1,list,s,sb);
-        sb.deleteCharAt(sb.length()-1);
-        sub(ind+1,list,s,sb);
+        Collections.sort(res);
+        return res;
     }
 }
