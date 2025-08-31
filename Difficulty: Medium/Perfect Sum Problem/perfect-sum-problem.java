@@ -6,19 +6,21 @@ class Solution {
         for(int i=0;i<num.length;i++){
             Arrays.fill(memo[i],-1);
         }
-        return check(0,num,tar,num.length,memo);
+        return check(num,tar,num.length-1,memo);
     }
     
-    public static int check(int ind,int arr[],int k,int n,int memo[][]){
-        if(ind==n){
-            return k==0 ? 1:0;
+    public static int check(int arr[],int k,int n,int memo[][]){
+        if(n==0){
+            if (k == 0 && arr[0] == 0) return 2;
+            if(k==0) return 1;
+            return k==arr[0] ? 1:0;
         }
-        if(k<0) return 0;
-        if(memo[ind][k]!=-1) return memo[ind][k];
+        if(memo[n][k]!=-1) return memo[n][k];
         
-        int count=0;
-        count+=check(ind+1,arr,k-arr[ind],n,memo);
-        count+=check(ind+1,arr,k,n,memo);
-        return memo[ind][k]= count;
+        int notpick=check(arr,k,n-1,memo);
+        int pick=0;
+        if(arr[n]<=k)
+            pick+=check(arr,k-arr[n],n-1,memo);
+        return memo[n][k]= pick+notpick;
     }
 }
